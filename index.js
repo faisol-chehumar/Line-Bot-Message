@@ -141,7 +141,7 @@ function handleSticker(message, replyToken) {
 }
 
 function responseMessageGenerator (message) {
-  if (message.text.includes('วาร์ป')) {
+  if (message.includes('วาร์ป')) {
     return 'ทำไมเรายังไม่วาร์ป';
   }
 }
