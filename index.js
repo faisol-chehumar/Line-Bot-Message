@@ -50,7 +50,7 @@ app.post('/webhook', line.middleware(config), (req, res) => {
   }
   // handle events separately
   Promise.all(req.body.events.map(event => {
-    console.log('event', event);
+    // console.log('event', event);
     // check verify webhook event
     if (event.replyToken === '00000000000000000000000000000000' ||
       event.replyToken === 'ffffffffffffffffffffffffffffffff') {
@@ -76,47 +76,52 @@ const replyText = (token, texts) => {
 
 const replyFlex = (token, data) => {
   // console.log(data);
+  console.log('Send flex');
   return client.replyMessage(
     token,
     data.map(item => (
       {
-        'type': 'bubble',
-        'header': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Header text',
-            },
-          ],
-        },
-        'hero': {
-          'type': 'image',
-          'url': item.img,
-        },
-        'body': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Body text',
-            },
-          ],
-        },
-        'footer': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Footer text',
-            },
-          ],
-        },
-        'styles': {
-          'comment': 'See the example of a bubble style object',
+        'type': 'flex',
+        'altText': 'JAV RECOMMENDED',
+        'contents': {
+          'type': 'bubble',
+          'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Header text',
+              },
+            ],
+          },
+          'hero': {
+            'type': 'image',
+            'url': item.img,
+          },
+          'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Body text',
+              },
+            ],
+          },
+          'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Footer text',
+              },
+            ],
+          },
+          'styles': {
+            'comment': 'See the example of a bubble style object',
+          },
         },
       }
     ))
@@ -130,7 +135,7 @@ function handleEvent(event) {
       const message = event.message;
       switch (message.type) {
         case 'text':
-          console.log(message);
+          // console.log(message);
           if (isDetectKeyword(message.text)) {
             return handleText(message, event.replyToken);
           };
