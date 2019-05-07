@@ -1,16 +1,16 @@
 'use strict';
 
-import * as line from '@line/bot-sdk';
-import express from 'express'
+const line = require('@line/bot-sdk');
+const express = require('express');
 
-import config from './config.json'
+const config = require('./config.json');
 
 // create LINE SDK client
 const client = new line.Client(config);
 
 const app = express();
 
-app.get('/', (res, req) => {
+app.get('/', (req, res) => {
   res.send('hello world');
 })
 
@@ -118,6 +118,6 @@ function handleSticker(message, replyToken) {
 }
 
 const port = config.port;
-app.listen(80, () => {
+app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
