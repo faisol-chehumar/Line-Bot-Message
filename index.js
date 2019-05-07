@@ -174,8 +174,8 @@ function handleEvent(event) {
   }
 }
 
-async function handleText(message = 'วาร์ป', replyToken = '000') {
-  const flexData = await responseMessageGenerator(message);
+async function handleText(message, replyToken) {
+  const flexData = await responseMessageGenerator(message.text);
   if (flexData) {
     return replyFlex(replyToken, flexData);
   }
@@ -210,7 +210,7 @@ function isDetectKeyword(message) {
 }
 
 async function responseMessageGenerator (message) {
-  if (message.includes('วาร์ป')) {
+  if (message.match('วาร์ป')) {
     const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=5');
     const viedos = result.data.response.videos;
     const imgPreviews = viedos.map(video => ({
