@@ -81,47 +81,43 @@ const replyFlex = (token, data) => {
     token,
     data.map(item => (
       {
-        'type': 'flex',
-        'altText': 'JAV RECOMMENDED',
-        'contents': {
-          'type': 'bubble',
-          'header': {
-            'type': 'box',
-            'layout': 'vertical',
-            'contents': [
-              {
-                'type': 'text',
-                'text': 'Header text',
-              },
-            ],
-          },
-          'hero': {
-            'type': 'image',
-            'url': item.img,
-          },
-          'body': {
-            'type': 'box',
-            'layout': 'vertical',
-            'contents': [
-              {
-                'type': 'text',
-                'text': 'Body text',
-              },
-            ],
-          },
-          'footer': {
-            'type': 'box',
-            'layout': 'vertical',
-            'contents': [
-              {
-                'type': 'text',
-                'text': 'Footer text',
-              },
-            ],
-          },
-          'styles': {
-            'comment': 'See the example of a bubble style object',
-          },
+        'type': 'bubble',
+        'header': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'text',
+              'text': 'Header text',
+            },
+          ],
+        },
+        'hero': {
+          'type': 'image',
+          'url': item.img,
+        },
+        'body': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'text',
+              'text': 'Body text',
+            },
+          ],
+        },
+        'footer': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'text',
+              'text': 'Footer text',
+            },
+          ],
+        },
+        'styles': {
+          'comment': 'See the example of a bubble style object',
         },
       }
     ))
@@ -216,7 +212,7 @@ function isDetectKeyword(message) {
 
 async function responseMessageGenerator (message) {
   if (message.match('วาร์ป')) {
-    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=5');
+    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=1');
     const viedos = result.data.response.videos;
     const imgPreviews = viedos.map(video => ({
       img: video.preview_url,
