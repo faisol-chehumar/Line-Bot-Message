@@ -35,7 +35,7 @@ const app = express();
 //   }
 // });
 
-handleText();
+// handleText();
 
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
