@@ -11,7 +11,7 @@ const client = new line.Client(config);
 const app = express();
 
 app.get('/', (res, req) => {
-  return res.body('Hello');
+  return res.send('hello world');
 })
 
 // webhook callback
