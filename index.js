@@ -85,37 +85,24 @@ const replyFlex = (token, data) => {
         'altText': 'This is a Flex message',
         'contents': {
           'type': 'bubble',
-          'header': {
-            'type': 'box',
-            'layout': 'vertical',
-            'contents': [
-              {
-                'type': 'text',
-                'text': 'Header text',
-              },
-            ],
-          },
           'hero': {
             'type': 'image',
             'url': item.img,
-          },
-          'body': {
-            'type': 'box',
-            'layout': 'vertical',
-            'contents': [
-              {
-                'type': 'text',
-                'text': 'Body text',
-              },
-            ],
+            'size': 'full',
+            'aspectRatio': '2:1',
           },
           'footer': {
             'type': 'box',
             'layout': 'vertical',
             'contents': [
               {
-                'type': 'text',
-                'text': 'Footer text',
+                'type': 'button',
+                'style': 'primary',
+                'action': {
+                  'type': 'uri',
+                  'label': 'Primary style button',
+                  'uri': item.link,
+                },
               },
             ],
           },
