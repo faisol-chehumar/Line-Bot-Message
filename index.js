@@ -2,10 +2,11 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
-// const axios = require('axios');
+const axios = require('axios');
 // const qs = require('qs');
 
 const config = require('./config.json')['kirk'];
+const keywords = require('./keywords.js');
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -30,6 +31,8 @@ const app = express();
 //     console.error(error);
 //   }
 // });
+
+responseMessageGenerator('วาร์ป');
 
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
@@ -67,6 +70,48 @@ const replyText = (token, texts) => {
   );
 };
 
+const replyFlex = (token, data) => {
+  return client.replyMessage(
+    token,
+    data.map(item => (
+      {
+        'type': 'bubble',
+        'hero': {
+          'type': 'image',
+          'url': item.img,
+          'size': 'full',
+          'aspectRatio': '20:13',
+          'aspectMode': 'cover',
+        },
+        'footer': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'spacer',
+              'size': 'xxl',
+            },
+            {
+              'type': 'button',
+              'style': 'primary',
+              'color': '#905c44',
+              'action': {
+                'type': 'uri',
+                'label': 'Watch JAV',
+                'uri': item.link,
+              },
+            },
+            {
+              'type': 'spacer',
+              'size': 'xxl',
+            },
+          ],
+        },
+      }
+    ))
+  );
+};
+
 // callback function to handle a single event
 function handleEvent(event) {
   switch (event.type) {
@@ -75,7 +120,10 @@ function handleEvent(event) {
       switch (message.type) {
         case 'text':
           console.log('Test message');
-          return handleText(message, event.replyToken);
+          if (isDetectKeyword(message)) {
+            return handleText(message, event.replyToken);
+          };
+          break;
         case 'image':
           return handleImage(message, event.replyToken);
         case 'video':
@@ -89,7 +137,7 @@ function handleEvent(event) {
         default:
           throw new Error(`Unknown message: ${JSON.stringify(message)}`);
       }
-
+      break;
     case 'follow':
       return replyText(event.replyToken, 'Got followed event');
 
@@ -115,9 +163,13 @@ function handleEvent(event) {
   }
 }
 
-function handleText(message, replyToken) {
-  const responseMessage = responseMessageGenerator(message.text) || message.text;
-  return replyText(replyToken, responseMessage);
+async function handleText(message, replyToken) {
+  const flexData = await responseMessageGenerator(message.text);
+  if (flexData) {
+    return replyFlex(replyToken, flexData);
+  }
+
+  return replyText(replyToken, message.text);
 }
 
 function handleImage(message, replyToken) {
@@ -140,9 +192,26 @@ function handleSticker(message, replyToken) {
   return replyText(replyToken, 'Got Sticker');
 }
 
-function responseMessageGenerator (message) {
+function isDetectKeyword(message) {
+  const splitText = [...message];
+
+  splitText.forEach(text => {
+    if (keywords.includes(text)) {
+      return true;
+    }
+  });
+}
+
+async function responseMessageGenerator (message) {
   if (message.includes('วาร์ป')) {
-    return 'ทำไมเรายังไม่วาร์ป';
+    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=10');
+    const viedos = result.data.response.videos;
+    const imgPreviews = viedos.map(video => ({
+      img: video.preview_url,
+      link: video.video_url,
+    }));
+    console.log(imgPreviews);
+    return imgPreviews;
   }
 }
 
