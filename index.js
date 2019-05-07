@@ -35,6 +35,8 @@ const app = express();
 //   }
 // });
 
+handleText();
+
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
 });
@@ -72,41 +74,48 @@ const replyText = (token, texts) => {
 };
 
 const replyFlex = (token, data) => {
+  // console.log(data);
   return client.replyMessage(
     token,
     data.map(item => (
       {
         'type': 'bubble',
+        'header': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'text',
+              'text': 'Header text',
+            },
+          ],
+        },
         'hero': {
           'type': 'image',
           'url': item.img,
-          'size': 'full',
-          'aspectRatio': '20:13',
-          'aspectMode': 'cover',
+        },
+        'body': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'text',
+              'text': 'Body text',
+            },
+          ],
         },
         'footer': {
           'type': 'box',
           'layout': 'vertical',
           'contents': [
             {
-              'type': 'spacer',
-              'size': 'xxl',
-            },
-            {
-              'type': 'button',
-              'style': 'primary',
-              'color': '#905c44',
-              'action': {
-                'type': 'uri',
-                'label': 'Watch JAV',
-                'uri': item.link,
-              },
-            },
-            {
-              'type': 'spacer',
-              'size': 'xxl',
+              'type': 'text',
+              'text': 'Footer text',
             },
           ],
+        },
+        'styles': {
+          'comment': 'See the example of a bubble style object',
         },
       }
     ))
@@ -164,8 +173,8 @@ function handleEvent(event) {
   }
 }
 
-async function handleText(message, replyToken) {
-  const flexData = await responseMessageGenerator(message.text);
+async function handleText(message = 'วาร์ป', replyToken = '000') {
+  const flexData = await responseMessageGenerator(message);
   if (flexData) {
     return replyFlex(replyToken, flexData);
   }
@@ -201,7 +210,7 @@ function isDetectKeyword(message) {
 
 async function responseMessageGenerator (message) {
   if (message.includes('วาร์ป')) {
-    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=10');
+    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=5');
     const viedos = result.data.response.videos;
     const imgPreviews = viedos.map(video => ({
       img: video.preview_url,
