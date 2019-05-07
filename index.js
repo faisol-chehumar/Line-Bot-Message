@@ -97,10 +97,10 @@ const replyFlex = (token, data) => {
             'contents': [
               {
                 'type': 'button',
-                'style': 'primary',
+                'style': 'secondary',
                 'action': {
                   'type': 'uri',
-                  'label': 'Primary style button',
+                  'label': 'Watch Movie',
                   'uri': item.link,
                 },
               },
