@@ -5,7 +5,7 @@ const express = require('express');
 const axios = require('axios');
 const qs = require('qs');
 
-const config = require('./config.json');
+const config = require('./config.json')['kirk'];
 
 // create LINE SDK client
 const client = new line.Client(config);
@@ -74,6 +74,7 @@ function handleEvent(event) {
       const message = event.message;
       switch (message.type) {
         case 'text':
+          console.log('Test message');
           return handleText(message, event.replyToken);
         case 'image':
           return handleImage(message, event.replyToken);
