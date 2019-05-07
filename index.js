@@ -81,43 +81,58 @@ const replyFlex = (token, data) => {
     token,
     data.map(item => (
       {
-        'type': 'bubble',
-        'header': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Header text',
+        'type': 'flex',
+        'altText': 'This is a Flex message',
+        'contents': {
+          'type': 'bubble',
+          'header': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Header text',
+              },
+            ],
+          },
+          'hero': {
+            'type': 'image',
+            'url': item.img,
+          },
+          'body': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Body text',
+              },
+            ],
+          },
+          'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'text',
+                'text': 'Footer text',
+              },
+            ],
+          },
+          'styles': {
+            'header': {
+              'backgroundColor': '#00ffff',
             },
-          ],
-        },
-        'hero': {
-          'type': 'image',
-          'url': item.img,
-        },
-        'body': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Body text',
+            'hero': {
+              'separator': true,
+              'separatorColor': '#000000',
             },
-          ],
-        },
-        'footer': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'text',
-              'text': 'Footer text',
+            'footer': {
+              'backgroundColor': '#00ffff',
+              'separator': true,
+              'separatorColor': '#000000',
             },
-          ],
-        },
-        'styles': {
-          'comment': 'See the example of a bubble style object',
+          },
         },
       }
     ))
