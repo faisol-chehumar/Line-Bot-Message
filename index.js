@@ -140,7 +140,7 @@ function handleSticker(message, replyToken) {
   return replyText(replyToken, 'Got Sticker');
 }
 
-function responseMessageGenerator ({ message }) {
+function responseMessageGenerator (message) {
   if (message.text.includes('วาร์ป')) {
     return 'ทำไมเรายังไม่วาร์ป';
   }
