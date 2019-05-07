@@ -36,6 +36,7 @@ const app = express();
 // });
 
 // handleText();
+// console.log(isDetectKeyword('xxx'));
 
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
@@ -204,7 +205,7 @@ function handleSticker(message, replyToken) {
 
 function isDetectKeyword(message) {
   return keywords.some(keyword => {
-    return message.includes(keyword);
+    return message.match(keyword);
   });
 }
 
