@@ -3,6 +3,9 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const axios = require('axios');
+// const wordcut = require('wordcut');
+// wordcut.init();
+// console.log(wordcut.cut('ขอวาร์ปหน่อยครับ'));
 // const qs = require('qs');
 
 const config = require('./config.json')['kirk'];
@@ -31,8 +34,6 @@ const app = express();
 //     console.error(error);
 //   }
 // });
-
-responseMessageGenerator('วาร์ป');
 
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
@@ -119,8 +120,8 @@ function handleEvent(event) {
       const message = event.message;
       switch (message.type) {
         case 'text':
-          console.log('Test message');
-          if (isDetectKeyword(message)) {
+          console.log(message);
+          if (isDetectKeyword(message.text)) {
             return handleText(message, event.replyToken);
           };
           break;
@@ -193,12 +194,8 @@ function handleSticker(message, replyToken) {
 }
 
 function isDetectKeyword(message) {
-  const splitText = [...message];
-
-  splitText.forEach(text => {
-    if (keywords.includes(text)) {
-      return true;
-    }
+  return keywords.some(keyword => {
+    return message.includes(keyword);
   });
 }
 
@@ -210,7 +207,7 @@ async function responseMessageGenerator (message) {
       img: video.preview_url,
       link: video.video_url,
     }));
-    console.log(imgPreviews);
+    // console.log(imgPreviews);
     return imgPreviews;
   }
 }
