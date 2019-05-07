@@ -11,7 +11,7 @@ const client = new line.Client(config);
 const app = express();
 
 app.get('/', (res, req) => {
-  return res.send('hello world');
+  res.send('hello world');
 })
 
 // webhook callback
@@ -118,6 +118,6 @@ function handleSticker(message, replyToken) {
 }
 
 const port = config.port;
-app.listen(port, () => {
+app.listen(80, () => {
   console.log(`listening on ${port}`);
 });
