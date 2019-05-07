@@ -106,20 +106,6 @@ const replyFlex = (token, data) => {
               },
             ],
           },
-          'styles': {
-            'header': {
-              'backgroundColor': '#00ffff',
-            },
-            'hero': {
-              'separator': true,
-              'separatorColor': '#000000',
-            },
-            'footer': {
-              'backgroundColor': '#00ffff',
-              'separator': true,
-              'separatorColor': '#000000',
-            },
-          },
         },
       }
     ))
@@ -214,7 +200,7 @@ function isDetectKeyword(message) {
 
 async function responseMessageGenerator (message) {
   if (message.match('วาร์ป')) {
-    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=1');
+    const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=5');
     const viedos = result.data.response.videos;
     const imgPreviews = viedos.map(video => ({
       img: video.preview_url,
