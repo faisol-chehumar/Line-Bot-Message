@@ -12,7 +12,7 @@ const app = express();
 
 app.get('/', (req, res) => {
   res.send('hello world');
-})
+});
 
 // webhook callback
 app.post('/webhook', line.middleware(config), (req, res) => {
@@ -117,8 +117,7 @@ function handleSticker(message, replyToken) {
   return replyText(replyToken, 'Got Sticker');
 }
 
-const host = '0.0.0.0';
 const port = process.env.PORT || config.port;
-app.listen(port, host, () => {
+app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
