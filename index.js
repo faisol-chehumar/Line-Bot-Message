@@ -2,6 +2,8 @@
 
 const line = require('@line/bot-sdk');
 const express = require('express');
+const axios = require('axios');
+const qs = require('qs');
 
 const config = require('./config.json');
 
@@ -9,6 +11,25 @@ const config = require('./config.json');
 const client = new line.Client(config);
 
 const app = express();
+
+app.get('/verify', async (req, res) => {
+  const accessToken = config.channelAccessToken;
+  const url = 'https://api.line.me/v2/oauth/verify';
+  const data = { 'access_token': accessToken };
+  const options = {
+    method: 'POST',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(data),
+    url,
+  };
+  try {
+    const result = await axios(options);
+    console.log(result.data);
+    return res.status(200).json({ message: 'Request received!', data: result.data });
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 app.get('/', (req, res) => {
   res.status(200).send('hello worldddd');
