@@ -117,7 +117,8 @@ function handleSticker(message, replyToken) {
   return replyText(replyToken, 'Got Sticker');
 }
 
+const host = '0.0.0.0';
 const port = process.env.PORT || config.port;
-app.listen(port, () => {
+app.listen(port, host, () => {
   console.log(`listening on ${port}`);
 });
