@@ -164,12 +164,12 @@ function handleEvent(event) {
 }
 
 async function handleText(message, replyToken) {
-  const flexData = await responseMessageGenerator(message.text);
-  if (flexData.type === 'FLEX') {
-    return replyFlex(replyToken, flexData);
+  const result = await responseMessageGenerator(message.text);
+  if (result.type === 'FLEX') {
+    return replyFlex(replyToken, result.data);
   }
 
-  return replyText(replyToken, message.text);
+  return replyText(replyToken, result.data);
 }
 
 function handleImage(message, replyToken) {
