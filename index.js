@@ -165,7 +165,7 @@ function handleEvent(event) {
 
 async function handleText(message, replyToken) {
   const flexData = await responseMessageGenerator(message.text);
-  if (flexData) {
+  if (flexData.type === 'FLEX') {
     return replyFlex(replyToken, flexData);
   }
 
@@ -207,7 +207,15 @@ async function responseMessageGenerator (message) {
       link: video.video_url,
     }));
     // console.log(imgPreviews);
-    return imgPreviews;
+    return {
+      data: imgPreviews,
+      type: 'FLEX',
+    };
+  } else {
+    return {
+      data: message.text,
+      type: 'TEXT',
+    };
   }
 }
 
