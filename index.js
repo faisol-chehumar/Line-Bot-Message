@@ -178,7 +178,7 @@ async function handleText(message, replyToken) {
     return replyFlex(replyToken, result.data);
   }
 
-  return replyText(replyToken, result.data);
+  return replyText(replyToken, 'Got Video');
 }
 
 function handleImage(message, replyToken) {
