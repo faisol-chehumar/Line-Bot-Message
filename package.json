@@ -4,7 +4,7 @@
   "description": "---- ### Reference [LINE Bot ด้วย Messaging API และ ตั้ง Server บน Heroku](https://medium.com/educate/line-bot-%E0%B8%94%E0%B9%89%E0%B8%A7%E0%B8%A2-messaging-api-c6f461634342)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

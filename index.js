@@ -77,7 +77,7 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 
 // simple reply function
 const replyText = (token, texts) => {
-  console.log('replt text')
+  console.log('replt text');
   texts = Array.isArray(texts) ? texts : [texts];
   return client.replyMessage(
     token,
