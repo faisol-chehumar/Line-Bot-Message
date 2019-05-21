@@ -1,12 +1,14 @@
-'use strict';
-
 const line = require('@line/bot-sdk');
 const express = require('express');
 const axios = require('axios');
+
+const Survey = require('./quick-reply');
+const questions = require('./questions.json');
 // const wordcut = require('wordcut');
 // wordcut.init();
 // console.log(wordcut.cut('ขอวาร์ปหน่อยครับ'));
 // const qs = require('qs');
+Survey.getQuestion(questions, 1);
 
 const config = require('./config.json')['kirk'];
 const keywords = require('./keywords.js');
@@ -39,6 +41,14 @@ const app = express();
 // console.log(isDetectKeyword('xxx'));
 
 app.get('/', (req, res) => {
+  const event = {};
+  event.type = 'message';
+  event.message = {
+    type: 'text',
+    text: 'หหกหก',
+  };
+
+  handleEvent(event);
   res.status(200).send('hello worldddd');
 });
 
@@ -67,6 +77,7 @@ app.post('/webhook', line.middleware(config), (req, res) => {
 
 // simple reply function
 const replyText = (token, texts) => {
+  console.log('replt text')
   texts = Array.isArray(texts) ? texts : [texts];
   return client.replyMessage(
     token,
@@ -120,10 +131,7 @@ function handleEvent(event) {
       switch (message.type) {
         case 'text':
           // console.log(message);
-          if (isDetectKeyword(message.text)) {
-            return handleText(message, event.replyToken);
-          };
-          break;
+          return handleText(message, event.replyToken);
         case 'image':
           return handleImage(message, event.replyToken);
         case 'video':
@@ -137,7 +145,7 @@ function handleEvent(event) {
         default:
           throw new Error(`Unknown message: ${JSON.stringify(message)}`);
       }
-      break;
+
     case 'follow':
       return replyText(event.replyToken, 'Got followed event');
 
@@ -164,7 +172,8 @@ function handleEvent(event) {
 }
 
 async function handleText(message, replyToken) {
-  const result = await responseMessageGenerator(message.text);
+  const result = await responseMessageGenerator(message);
+
   if (result.type === 'FLEX') {
     return replyFlex(replyToken, result.data);
   }
@@ -199,24 +208,20 @@ function isDetectKeyword(message) {
 }
 
 async function responseMessageGenerator (message) {
-  if (message.match('วาร์ป')) {
+  if (isDetectKeyword(message.text)) {
     const result = await axios.get('https://api.avgle.com/v1/videos/0?limit=5');
     const viedos = result.data.response.videos;
     const imgPreviews = viedos.map(video => ({
       img: video.preview_url,
       link: video.video_url,
     }));
-    // console.log(imgPreviews);
     return {
       data: imgPreviews,
       type: 'FLEX',
     };
-  } else {
-    return {
-      data: message.text,
-      type: 'TEXT',
-    };
   }
+
+  return message;
 }
 
 const port = process.env.PORT || config.port;
