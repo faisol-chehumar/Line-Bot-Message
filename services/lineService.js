@@ -43,7 +43,7 @@ const replyFlex = (token, contents) => {
   console.log(flexContent);
   return client.reply(
     token,
-    Line.createFlex(
+    [Line.createFlex(
       'This is Flex.',
       {
         'type': 'bubble',
@@ -69,7 +69,7 @@ const replyFlex = (token, contents) => {
           ],
         },
       }
-    )
+    )]
   );
 };
 
