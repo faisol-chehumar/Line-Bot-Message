@@ -9,17 +9,18 @@ const client = LineClient.connect(lineConfig);
 const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents) => {
-  console.log('Reply flex');
+  // console.log('Reply flex');
+
   return client.reply(token, [
     Line.createFlex('Hello',
       {
         type: 'carousel',
-        contents: [
+        contents: contents.map(item => [
           {
             type: 'bubble',
             hero: {
               type: 'image',
-              url: 'https://developers.line.biz/media/messaging-api/using-flex-messages/helloWorld-af5af0ea.png',
+              url: item.img,
               size: 'full',
               aspectRatio: '2:1',
             },
@@ -33,37 +34,13 @@ const replyFlex = (token, contents) => {
                   action: {
                     type: 'uri',
                     label: 'Watch Movie',
-                    uri: 'https://www.google.com',
+                    uri: item.link,
                   },
                 },
               ],
             },
           },
-          {
-            type: 'bubble',
-            hero: {
-              type: 'image',
-              url: 'https://developers.line.biz/media/messaging-api/using-flex-messages/helloWorld-af5af0ea.png',
-              size: 'full',
-              aspectRatio: '2:1',
-            },
-            footer: {
-              type: 'box',
-              layout: 'vertical',
-              contents: [
-                {
-                  type: 'button',
-                  style: 'secondary',
-                  action: {
-                    type: 'uri',
-                    label: 'Watch Movie',
-                    uri: 'https://www.google.com',
-                  },
-                },
-              ],
-            },
-          },
-        ],
+        ]),
       }
     ),
   ]);
