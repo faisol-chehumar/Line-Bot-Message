@@ -8,9 +8,9 @@ const client = LineClient.connect(lineConfig);
 
 // const replyText = (token, texts) => client.replyText(token, texts);
 
-const replyFlex = (token, contents) => {
+const replyFlex = (token, contents, altText) => {
   return client.reply(token, [
-    Line.createFlex('Hello',
+    Line.createFlex(altText,
       {
         type: 'carousel',
         contents: contents.map(item => (
@@ -52,14 +52,14 @@ async function handleText (message, replyToken) {
     setTimeout(async function() {
       const content = await movie.getMoviesByKeyword(text);
 
-      return content.length > 0 && replyFlex(replyToken, content);
+      return content.length > 0 && replyFlex(replyToken, content, 'We\'ll beam down immediately, Commodore. Kirk out.');
     }, 10000);
   };
 
   if (actionType === 'getMovies') {
     const content = await movie.getMovies();
 
-    return replyFlex(replyToken, content);
+    return replyFlex(replyToken, content, 'Scotty, I need warp speed in three minutes or we\'re all dead.');
   }
 };
 
