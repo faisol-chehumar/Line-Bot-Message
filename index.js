@@ -6,20 +6,12 @@ const config = require('./config/app.json');
 const app = express();
 
 app.get('/', (_, res) => {
-  const event = {
-    type: 'message',
-    replyToken: '1111',
-    message: {
-      type: 'text',
-      text: 'วาร์ป',
-    },
-  };
-  Line.handleEvent(event);
   res.status(200).send('hello worldddd');
 });
 
 app.post('/webhook', (req, res) => {
-  console.log(res);
+  console.log('>>>>>>>>>>>');
+  console.log(req.body.events);
   console.log('>>>>>>>>>>>');
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
