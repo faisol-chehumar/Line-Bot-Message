@@ -40,7 +40,7 @@ const replyFlex = (token, contents) => {
   //   )
   // ));
 
-  // console.log(flexContent);
+  console.log(client.replyFlex());
   return client.replyFlex(token, 'this is a flex', {
     type: 'bubble',
     header: {
@@ -76,9 +76,6 @@ const replyFlex = (token, contents) => {
           text: 'Footer text',
         },
       ],
-    },
-    styles: {
-      comment: 'See the example of a bubble style object',
     },
   });
 };
