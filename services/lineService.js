@@ -1,4 +1,4 @@
-const { LineClient } = require('messaging-api-line');
+const { LineClient, Line } = require('messaging-api-line');
 
 const lineConfig = require('../config/lineService.json')['kirk'];
 const bot = require('./botService');
@@ -10,6 +10,14 @@ const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
+  client.reply(token, [
+    Line.createText('Hello'),
+    Line.createImage({
+      originalContentUrl: 'https://example.com/original.jpg',
+      previewImageUrl: 'https://example.com/preview.jpg',
+    }),
+    Line.createText('End'),
+  ]);
   // const flexContent = contents.map(item => (
   //   Line.createFlex(
   //     'This is Flex.',
@@ -40,44 +48,44 @@ const replyFlex = (token, contents) => {
   //   )
   // ));
 
-  console.log(client.replyFlex());
-  return client.replyFlex(token, 'this is a flex', {
-    type: 'bubble',
-    header: {
-      type: 'box',
-      layout: 'vertical',
-      contents: [
-        {
-          type: 'text',
-          text: 'Header text',
-        },
-      ],
-    },
-    hero: {
-      type: 'image',
-      url: 'https://example.com/flex/images/image.jpg',
-    },
-    body: {
-      type: 'box',
-      layout: 'vertical',
-      contents: [
-        {
-          type: 'text',
-          text: 'Body text',
-        },
-      ],
-    },
-    footer: {
-      type: 'box',
-      layout: 'vertical',
-      contents: [
-        {
-          type: 'text',
-          text: 'Footer text',
-        },
-      ],
-    },
-  });
+  // console.log(client.replyFlex());
+  // return client.replyFlex(token, 'this is a flex', {
+  //   type: 'bubble',
+  //   header: {
+  //     type: 'box',
+  //     layout: 'vertical',
+  //     contents: [
+  //       {
+  //         type: 'text',
+  //         text: 'Header text',
+  //       },
+  //     ],
+  //   },
+  //   hero: {
+  //     type: 'image',
+  //     url: 'https://example.com/flex/images/image.jpg',
+  //   },
+  //   body: {
+  //     type: 'box',
+  //     layout: 'vertical',
+  //     contents: [
+  //       {
+  //         type: 'text',
+  //         text: 'Body text',
+  //       },
+  //     ],
+  //   },
+  //   footer: {
+  //     type: 'box',
+  //     layout: 'vertical',
+  //     contents: [
+  //       {
+  //         type: 'text',
+  //         text: 'Footer text',
+  //       },
+  //     ],
+  //   },
+  // });
 };
 
 async function handleText (message, replyToken) {
