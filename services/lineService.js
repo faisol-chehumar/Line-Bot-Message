@@ -1,16 +1,16 @@
-const { LineClient } = require('messaging-api-line');
+const { LineClient, Line } = require('messaging-api-line');
 
 const lineConfig = require('../config/lineService.json')['kirk'];
 const bot = require('./botService');
 const movie = require('./movieService');
 
-const Line = LineClient.connect(lineConfig);
+const client = LineClient.connect(lineConfig);
 
 const replyText = (token, texts) => {
   console.log('Reply text');
   texts = Array.isArray(texts) ? texts : [texts];
 
-  return Line.replyText(
+  return client.replyText(
     token,
     texts.map(text => ({ type: 'text', text }))
   );
@@ -18,34 +18,36 @@ const replyText = (token, texts) => {
 
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
-  return Line.replyFlex(
+  return client.reply(
     token,
-    'This is a flex.',
     contents.map(item => (
-      {
-        'type': 'bubble',
-        'hero': {
-          'type': 'image',
-          'url': item.img,
-          'size': 'full',
-          'aspectRatio': '2:1',
-        },
-        'footer': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'button',
-              'style': 'secondary',
-              'action': {
-                'type': 'uri',
-                'label': 'Watch Movie',
-                'uri': item.link,
+      Line.createFlex(
+        'This is Flex.',
+        {
+          'type': 'bubble',
+          'hero': {
+            'type': 'image',
+            'url': item.img,
+            'size': 'full',
+            'aspectRatio': '2:1',
+          },
+          'footer': {
+            'type': 'box',
+            'layout': 'vertical',
+            'contents': [
+              {
+                'type': 'button',
+                'style': 'secondary',
+                'action': {
+                  'type': 'uri',
+                  'label': 'Watch Movie',
+                  'uri': item.link,
+                },
               },
-            },
-          ],
-        },
-      }
+            ],
+          },
+        }
+      )
     ))
   );
 };
