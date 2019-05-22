@@ -15,7 +15,7 @@ app.get('/', (_, res) => {
     type: 'message',
     message: {
       type: 'text',
-      text: 'Hello วาร์ป',
+      text: 'สวัสดี',
     },
   };
   Line.handleEvent(event);
@@ -32,7 +32,7 @@ app.post('/webhook', (req, res) => {
       event.replyToken === 'ffffffffffffffffffffffffffffffff') {
       return;
     }
-    console.log('Line Handle');
+
     return Line.handleEvent(event);
   }))
     .then(() => res.end())

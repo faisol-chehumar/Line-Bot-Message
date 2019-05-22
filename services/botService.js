@@ -1,7 +1,7 @@
 const getActionType = text => {
   const actions = {
-    type1: 'sendText',
-    type2: 'sendMovie',
+    type1: 'getMoviesByKeyword',
+    type2: 'getMovies',
   };
 
   if (text.includes('วาร์ป')) {
