@@ -10,7 +10,7 @@ const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
-  client.reply(token, [
+  return client.reply(token, [
     Line.createFlex('Hello',
       {
         type: 'carousel',
