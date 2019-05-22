@@ -1,9 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const Line = require('./services/lineService');
 const config = require('./config/app.json');
 
 const app = express();
+
+app
+  .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (_, res) => {
   res.status(200).send('hello worldddd');
