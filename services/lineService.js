@@ -43,7 +43,12 @@ const replyFlex = (token, contents) => {
   console.log(flexContent);
   return client.reply(
     token,
-    flexContent
+    [
+      {
+        type: 'text',
+        text: 'Hello!',
+      },
+    ]
   );
 };
 
