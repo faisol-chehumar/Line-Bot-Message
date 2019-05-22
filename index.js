@@ -11,6 +11,14 @@ app
   .use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (_, res) => {
+  const event = {
+    type: 'message',
+    message: {
+      type: 'text',
+      text: 'วาร์ป',
+    },
+  };
+  Line.handleEvent(event);
   res.status(200).send('hello worldddd');
 });
 

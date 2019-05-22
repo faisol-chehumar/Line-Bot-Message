@@ -18,6 +18,38 @@ const replyText = (token, texts) => {
 
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
+  // console.log(contents);
+  const test = contents.map(item => (
+    Line.createFlex(
+      'This is Flex.',
+      {
+        'type': 'bubble',
+        'hero': {
+          'type': 'image',
+          'url': item.img,
+          'size': 'full',
+          'aspectRatio': '2:1',
+        },
+        'footer': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'button',
+              'style': 'secondary',
+              'action': {
+                'type': 'uri',
+                'label': 'Watch Movie',
+                'uri': item.link,
+              },
+            },
+          ],
+        },
+      }
+    )
+  ));
+
+  console.log(test);
   return client.reply(
     token,
     contents.map(item => (
@@ -56,7 +88,7 @@ async function handleText (message, replyToken) {
   const actionType = bot.getActionType(message.text);
   console.log('actionType>>>', actionType);
   if (actionType === 'sendText') {
-    console.log('Send Text');
+    console.log('Send Text', message.text);
     return replyText(replyToken, message.text);
   };
 
