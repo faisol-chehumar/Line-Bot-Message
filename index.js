@@ -15,7 +15,7 @@ app.get('/', (_, res) => {
     type: 'message',
     message: {
       type: 'text',
-      text: 'วาร์ป',
+      text: 'Hello world',
     },
   };
   Line.handleEvent(event);
