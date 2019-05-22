@@ -45,29 +45,45 @@ const replyFlex = (token, contents) => {
     token,
     'This is Flex.',
     {
-      'type': 'bubble',
-      'hero': {
-        'type': 'image',
-        'url': 'www.google.com',
-        'size': 'full',
-        'aspectRatio': '2:1',
-      },
-      'footer': {
-        'type': 'box',
-        'layout': 'vertical',
-        'contents': [
+      type: 'bubble',
+      header: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
           {
-            'type': 'button',
-            'style': 'secondary',
-            'action': {
-              'type': 'uri',
-              'label': 'Watch Movie',
-              'uri': 'www.google.com',
-            },
+            type: 'text',
+            text: 'Header text',
           },
         ],
       },
-    },
+      hero: {
+        type: 'image',
+        url: 'https://example.com/flex/images/image.jpg',
+      },
+      body: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: 'Body text',
+          },
+        ],
+      },
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: 'Footer text',
+          },
+        ],
+      },
+      styles: {
+        comment: 'See the example of a bubble style object',
+      },
+    }
   );
 };
 
