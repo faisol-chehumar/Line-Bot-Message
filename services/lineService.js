@@ -43,12 +43,33 @@ const replyFlex = (token, contents) => {
   console.log(flexContent);
   return client.reply(
     token,
-    [
+    Line.createFlex(
+      'This is Flex.',
       {
-        type: 'text',
-        text: 'Hello!',
-      },
-    ]
+        'type': 'bubble',
+        'hero': {
+          'type': 'image',
+          'url': 'www.google.com',
+          'size': 'full',
+          'aspectRatio': '2:1',
+        },
+        'footer': {
+          'type': 'box',
+          'layout': 'vertical',
+          'contents': [
+            {
+              'type': 'button',
+              'style': 'secondary',
+              'action': {
+                'type': 'uri',
+                'label': 'Watch Movie',
+                'uri': 'www.google.com',
+              },
+            },
+          ],
+        },
+      }
+    )
   );
 };
 
