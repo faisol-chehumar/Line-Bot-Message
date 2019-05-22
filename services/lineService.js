@@ -11,12 +11,61 @@ const replyText = (token, texts) => client.replyText(token, texts);
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
   client.reply(token, [
-    Line.createText('Hello'),
-    Line.createImage({
-      originalContentUrl: 'https://example.com/original.jpg',
-      previewImageUrl: 'https://example.com/preview.jpg',
-    }),
-    Line.createText('End'),
+    Line.createFlex('Hello',
+      {
+        type: 'carousel',
+        contents: [
+          {
+            type: 'bubble',
+            hero: {
+              type: 'image',
+              url: 'https://developers.line.biz/media/messaging-api/using-flex-messages/helloWorld-af5af0ea.png',
+              size: 'full',
+              aspectRatio: '2:1',
+            },
+            footer: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'button',
+                  style: 'secondary',
+                  action: {
+                    type: 'uri',
+                    label: 'Watch Movie',
+                    uri: 'https://www.google.com',
+                  },
+                },
+              ],
+            },
+          },
+          {
+            type: 'bubble',
+            hero: {
+              type: 'image',
+              url: 'https://developers.line.biz/media/messaging-api/using-flex-messages/helloWorld-af5af0ea.png',
+              size: 'full',
+              aspectRatio: '2:1',
+            },
+            footer: {
+              type: 'box',
+              layout: 'vertical',
+              contents: [
+                {
+                  type: 'button',
+                  style: 'secondary',
+                  action: {
+                    type: 'uri',
+                    label: 'Watch Movie',
+                    uri: 'https://www.google.com',
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      }
+    ),
   ]);
   // const flexContent = contents.map(item => (
   //   Line.createFlex(
