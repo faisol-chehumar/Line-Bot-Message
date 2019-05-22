@@ -10,37 +10,37 @@ const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents) => {
   console.log('Reply flex');
-  const flexContent = contents.map(item => (
-    Line.createFlex(
-      'This is Flex.',
-      {
-        'type': 'bubble',
-        'hero': {
-          'type': 'image',
-          'url': item.img,
-          'size': 'full',
-          'aspectRatio': '2:1',
-        },
-        'footer': {
-          'type': 'box',
-          'layout': 'vertical',
-          'contents': [
-            {
-              'type': 'button',
-              'style': 'secondary',
-              'action': {
-                'type': 'uri',
-                'label': 'Watch Movie',
-                'uri': item.link,
-              },
-            },
-          ],
-        },
-      }
-    )
-  ));
+  // const flexContent = contents.map(item => (
+  //   Line.createFlex(
+  //     'This is Flex.',
+  //     {
+  //       'type': 'bubble',
+  //       'hero': {
+  //         'type': 'image',
+  //         'url': item.img,
+  //         'size': 'full',
+  //         'aspectRatio': '2:1',
+  //       },
+  //       'footer': {
+  //         'type': 'box',
+  //         'layout': 'vertical',
+  //         'contents': [
+  //           {
+  //             'type': 'button',
+  //             'style': 'secondary',
+  //             'action': {
+  //               'type': 'uri',
+  //               'label': 'Watch Movie',
+  //               'uri': item.link,
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     }
+  //   )
+  // ));
 
-  console.log(flexContent);
+  // console.log(flexContent);
   return client.replyFlex(
     token,
     'This is Flex.',
