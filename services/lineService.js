@@ -15,7 +15,7 @@ const replyFlex = (token, contents) => {
     Line.createFlex('Hello',
       {
         type: 'carousel',
-        contents: contents.map(item => [
+        contents: contents.map(item => (
           {
             type: 'bubble',
             hero: {
@@ -39,8 +39,8 @@ const replyFlex = (token, contents) => {
                 },
               ],
             },
-          },
-        ]),
+          }
+        )),
       }
     ),
   ]);
