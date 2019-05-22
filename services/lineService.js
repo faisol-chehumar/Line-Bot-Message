@@ -6,7 +6,7 @@ const movie = require('./movieService');
 
 const client = LineClient.connect(lineConfig);
 
-// const replyText = (token, texts) => client.replyText(token, texts);
+const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents, altText) => {
   return client.reply(token, [
@@ -61,6 +61,10 @@ async function handleText (message, replyToken) {
 
     return replyFlex(replyToken, content, 'Scotty, I need warp speed in three minutes or we\'re all dead.');
   }
+
+  if (actionType === 'sendText') {
+    replyText(replyToken, 'Cover! Kirk to Enterprise, lock on transporters. Beam us up.');
+  };
 };
 
 function handleEvent(event) {
