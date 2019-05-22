@@ -19,6 +19,8 @@ app.get('/', (_, res) => {
 });
 
 app.post('/webhook', (req, res) => {
+  console.log(res);
+  console.log('>>>>>>>>>>>');
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
   }
