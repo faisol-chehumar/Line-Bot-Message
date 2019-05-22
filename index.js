@@ -19,11 +19,12 @@ app.get('/', (_, res) => {
   //   },
   // };
   // Line.handleEvent(event);
+  console.log(res);
   res.status(200).send('hello worldddd');
 });
 
 app.post('/webhook', (req, res) => {
-  console.log(req.body);
+  console.log(res);
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
   }
