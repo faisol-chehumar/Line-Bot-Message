@@ -11,14 +11,14 @@ app
   .use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', (_, res) => {
-  const event = {
-    type: 'message',
-    message: {
-      type: 'text',
-      text: 'สวัสดี',
-    },
-  };
-  Line.handleEvent(event);
+  // const event = {
+  //   type: 'message',
+  //   message: {
+  //     type: 'text',
+  //     text: 'ลายแทง',
+  //   },
+  // };
+  // Line.handleEvent(event);
   res.status(200).send('hello worldddd');
 });
 

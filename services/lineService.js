@@ -6,6 +6,22 @@ const movie = require('./movieService');
 
 const client = LineClient.connect(lineConfig);
 
+const replyTemplate = (token, link) => {
+  client.replyTemplate(token, 'Sometimes a feeling is all we humans have to go on', {
+    type: 'buttons',
+    thumbnailImageUrl: 'https://timedotcom.files.wordpress.com/2016/07/gettyimages-542423158.jpg',
+    title: 'KAPOO MAP',
+    text: 'OPEN MAP',
+    actions: [
+      {
+        type: 'uri',
+        label: 'View detail',
+        uri: link,
+      },
+    ],
+  });
+};
+
 const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents, altText) => {
@@ -62,8 +78,13 @@ async function handleText (message, replyToken) {
     return replyFlex(replyToken, content, 'Scotty, I need warp speed in three minutes or we\'re all dead.');
   }
 
+  if (actionType === 'sendMap') {
+    console.log('Open map');
+    replyTemplate(replyToken, 'line://app/1571981096-OZoBNDWj');
+  }
+
   if (actionType === 'sendText') {
-    replyText(replyToken, 'Cover! Kirk to Enterprise, lock on transporters. Beam us up.');
+    return replyText(replyToken, 'Cover! Kirk to Enterprise, lock on transporters. Beam us up.');
   };
 };
 
