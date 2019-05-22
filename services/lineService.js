@@ -54,7 +54,7 @@ const replyFlex = (token, contents) => {
 
 async function handleText (message, replyToken) {
   const actionType = bot.getActionType(message.text);
-
+  console.log('actionType>>>', actionType);
   if (actionType === 'sendSurvey') {
     console.log('Send Survey');
     return replyText(replyToken, 'Send Survey');
@@ -74,6 +74,7 @@ function handleEvent(event) {
       const message = event.message;
       switch (message.type) {
         case 'text':
+          console.log('Handle Event');
           return handleText(message, event.replyToken);
         default:
           throw new Error(`Unknown message: ${JSON.stringify(message)}`);

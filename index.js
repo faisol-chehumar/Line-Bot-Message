@@ -24,7 +24,7 @@ app.post('/webhook', (req, res) => {
       event.replyToken === 'ffffffffffffffffffffffffffffffff') {
       return;
     }
-
+    console.log('Line Handle');
     return Line.handleEvent(event);
   }))
     .then(() => res.end())
