@@ -6,7 +6,7 @@ const movie = require('./movieService');
 
 const client = LineClient.connect(lineConfig);
 
-const replyText = (token, texts) => client.replyText(token, texts);
+// const replyText = (token, texts) => client.replyText(token, texts);
 
 const replyFlex = (token, contents) => {
   return client.reply(token, [
