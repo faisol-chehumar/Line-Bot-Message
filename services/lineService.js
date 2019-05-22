@@ -7,7 +7,7 @@ const movie = require('./movieService');
 const client = LineClient.connect(lineConfig);
 
 const replyTemplate = (token, link) => {
-  client.replyTemplate(token, 'Sometimes a feeling is all we humans have to go on', {
+  return client.replyTemplate(token, 'Sometimes a feeling is all we humans have to go on', {
     type: 'buttons',
     thumbnailImageUrl: 'https://timedotcom.files.wordpress.com/2016/07/gettyimages-542423158.jpg',
     title: 'KAPOO MAP',
@@ -79,8 +79,7 @@ async function handleText (message, replyToken) {
   }
 
   if (actionType === 'sendMap') {
-    console.log('Open map');
-    replyTemplate(replyToken, 'line://app/1571981096-OZoBNDWj');
+    return replyTemplate(replyToken, 'line://app/1571981096-OZoBNDWj');
   }
 
   if (actionType === 'sendText') {
