@@ -10,7 +10,7 @@ app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (_, res) => {
+app.get('/', (req, res) => {
   // const event = {
   //   type: 'message',
   //   message: {
@@ -20,7 +20,7 @@ app.get('/', (_, res) => {
   // };
   // Line.handleEvent(event);
   console.log(res);
-  res.status(200).send('hello worldddd');
+  res.status(200).send(req.body.events);
 });
 
 app.post('/webhook', (req, res) => {
