@@ -55,9 +55,9 @@ const replyFlex = (token, contents) => {
 async function handleText (message, replyToken) {
   const actionType = bot.getActionType(message.text);
   console.log('actionType>>>', actionType);
-  if (actionType === 'sendSurvey') {
-    console.log('Send Survey');
-    return replyText(replyToken, 'Send Survey');
+  if (actionType === 'sendText') {
+    console.log('Send Text');
+    return replyText(replyToken, message.text);
   };
 
   if (actionType === 'sendMovie') {
