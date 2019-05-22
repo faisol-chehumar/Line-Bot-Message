@@ -41,36 +41,46 @@ const replyFlex = (token, contents) => {
   // ));
 
   // console.log(flexContent);
-  return client.replyImageCarouselTemplate(
-    token,
-    'this is an image carousel template',
-    [
-      {
-        imageUrl: 'https://example.com/bot/images/item1.jpg',
-        action: {
-          type: 'postback',
-          label: 'Buy',
-          data: 'action=buy&itemid=111',
+  return client.replyFlex(token, 'this is a flex', {
+    type: 'bubble',
+    header: {
+      type: 'box',
+      layout: 'vertical',
+      contents: [
+        {
+          type: 'text',
+          text: 'Header text',
         },
-      },
-      {
-        imageUrl: 'https://example.com/bot/images/item2.jpg',
-        action: {
-          type: 'message',
-          label: 'Yes',
-          text: 'yes',
+      ],
+    },
+    hero: {
+      type: 'image',
+      url: 'https://example.com/flex/images/image.jpg',
+    },
+    body: {
+      type: 'box',
+      layout: 'vertical',
+      contents: [
+        {
+          type: 'text',
+          text: 'Body text',
         },
-      },
-      {
-        imageUrl: 'https://example.com/bot/images/item3.jpg',
-        action: {
-          type: 'uri',
-          label: 'View detail',
-          uri: 'http://example.com/page/222',
+      ],
+    },
+    footer: {
+      type: 'box',
+      layout: 'vertical',
+      contents: [
+        {
+          type: 'text',
+          text: 'Footer text',
         },
-      },
-    ]
-  );
+      ],
+    },
+    styles: {
+      comment: 'See the example of a bubble style object',
+    },
+  });
 };
 
 async function handleText (message, replyToken) {
