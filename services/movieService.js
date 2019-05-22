@@ -26,7 +26,7 @@ async function getMoviesByKeyword (query, limit = 5) {
 
     return movies;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 
