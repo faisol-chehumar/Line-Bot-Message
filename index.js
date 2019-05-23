@@ -10,22 +10,20 @@ app
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  // const event = {
-  //   type: 'message',
-  //   message: {
-  //     type: 'text',
-  //     text: 'ลายแทง',
-  //   },
-  // };
-  // Line.handleEvent(event);
-  console.log(res);
-  res.status(200).send(req.body.events);
+app.get('/', (_, res) => {
+  res.status(200).send('Hello');
+});
+
+app.get('/broadcast', (req, res) => {
+  Line.broadcast([
+    'U738a5fc36ba9798137f943eb4805811d',
+    'U89be081be7e2f54ed8800a0f8051839c',
+  ], 'Roger That!');
+  res.status(200).send('Broadcst Message');
 });
 
 app.post('/webhook', (req, res) => {
-  console.log(req);
-  console.log(res);
+  console.log(req.body.events);
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
   }

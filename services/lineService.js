@@ -103,6 +103,20 @@ function handleEvent(event) {
   }
 }
 
+function broadcast (userIds, text) {
+  console.log('Broadcast!');
+  client.multicast(
+    [...userIds],
+    [
+      {
+        type: 'text',
+        text: text,
+      },
+    ]
+  );
+};
+
 module.exports = {
   handleEvent,
+  broadcast,
 };
