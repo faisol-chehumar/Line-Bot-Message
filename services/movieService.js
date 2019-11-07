@@ -1,36 +1,24 @@
 const axios = require('axios');
 
-async function getMovies (limit = 5) {
+const getMovies = async (data = { query: null, limit: 5 }) => {
+  const { query, limit } = data;
+
+  const apiEndpoint = query
+    ? `https://api.avgle.com/v1/search/${encodeURIComponent(query)}/1?limit=${limit}`
+    : `https://api.avgle.com/v1/videos/0?limit=${limit}`;
+
   try {
-    const result = await axios.get(`https://api.avgle.com/v1/videos/0?limit=${limit}`);
-    const viedos = result.data.response.videos;
-    const movies = viedos.map(video => ({
+    const { data: { response: { videos } } } = await axios.get(apiEndpoint);
+
+    return videos.map(video => ({
       img: video.preview_url,
       link: video.video_url,
     }));
-
-    return movies;
   } catch (error) {
     console.log(error);
   }
-}
-
-async function getMoviesByKeyword (query, limit = 5) {
-  try {
-    const result = await axios.get(`https://api.avgle.com/v1/search/${encodeURIComponent(query)}/1?limit=${limit}`);
-    const viedos = result.data.response.videos;
-    const movies = viedos.map(video => ({
-      img: video.preview_url,
-      link: video.video_url,
-    }));
-
-    return movies;
-  } catch (error) {
-    console.log(error);
-  }
-}
+};
 
 module.exports = {
   getMovies,
-  getMoviesByKeyword,
 };
